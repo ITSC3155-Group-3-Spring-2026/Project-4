@@ -23,19 +23,22 @@ class Example extends React.Component {
     // We read the example model data into the state variable 'name'
     this.state = {
       name: window.models.exampleModel().name,
+      motto: window.models.exampleModel().motto,
+
       counter: 0,
       inputValue: '',
       buttonWasClicked: '',
     };
 
-    // React events are called directly from DOM event handlers
-    // so we cannot directly call the methods of this class. We
-    // generate new functions that handle the event by just calling
-    // the method that handles the event.
+      // React events are called directly from DOM event handlers
+      // so we cannot directly call the methods of this class. We
+      // generate new functions that handle the event by just calling
+      // the method that handles the event.
     this.handleChangeBound = event => this.handleChange(event);
-    // Note: A commmon idiom in React code is to use JavaScript bind() to
-    // smash the method to accomplish this passthrough to the method:
-    //      this.handleChange = this.handleChange.bind(this);
+    this.handleMottoChangeBound = event => this.handleMottoChange(event);
+      // Note: A commmon idiom in React code is to use JavaScript bind() to
+      // smash the method to accomplish this passthrough to the method:
+      //      this.handleChange = this.handleChange.bind(this);
   }
 
   // React components have several "lifecycle functions"
@@ -67,6 +70,11 @@ class Example extends React.Component {
   // Method called when the input box is typed into.
   handleChange(event) {
     this.setState({ inputValue: event.target.value });
+  }
+
+  // Method called when the motto input box is typed into.
+  handleMottoChange(event) {
+      this.setState({ motto: event.target.value });
   }
 
   // Method called when the button is pushed
@@ -104,6 +112,16 @@ class Example extends React.Component {
 
         <div className="motto-update">
           {/* Your problem #1 motto displaying and updating widget goes here */}
+          {this.state.name}
+          <br/>
+          {this.state.motto}
+          <hr/ >
+        </div>
+
+        {/* to change the motto*/}
+        <div>
+            <label htmlFor="mottoId">Change Motto: </label>
+            <input id="mottoId" type="text" value={this.state.motto} onChange={this.handleMottoChangeBound} />
         </div>
 
         <p>
