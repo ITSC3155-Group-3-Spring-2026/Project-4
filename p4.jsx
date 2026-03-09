@@ -1,44 +1,43 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/main.css';
+
+import Header from './components/header/header';
 import Example from './components/example/Example';
 import States from './components/states/States';
 
-class p4 extends React.Component {
-  constructor(props) {
-    super(props);
+ReactDOM.render(
+    <Header/>,
+    document.getElementById('reactappHeader')
+);
 
+class Toggle extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {isToggleOn: true};
+        this.handleClick = this.handleClick.bind(this);
+    }
 
-    this.state = {
-      currentView: 'example',
-    };
+    handleClick() {
+        this.setState(prevState => ({
+            isToggleOn: !prevState.isToggleOn
+        }));
+    }
 
-    this.handleSwitchBound = () => this.handleSwitch();
-  }
-
-  handleSwitch() {
-    this.setState((prevState) => ({
-      currentView: prevState.currentView === 'example' ? 'states' : 'example',
-    }));
-  }
-
-  render() {
-    const { currentView } = this.state;
-    const isExample = currentView === 'example';
-
-    return (
-      <div>
-        <button type="button" onClick={this.handleSwitchBound}>
-          {isExample ? 'Switch to States' : 'Switch to Example'}
-        </button>
-
-        {isExample ? <Example /> : <States />}
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="container">
+                <button onClick={this.handleClick}>
+                    {this.state.isToggleOn ? 'Switch to States' : 'Switch to Example'}
+                </button>
+                <hr />
+                {this.state.isToggleOn ? <Example /> : <States />}
+            </div>
+        );
+    }
 }
 
 ReactDOM.render(
-  <p4 />,
-  document.getElementById('reactapp'),
-);
+    <Toggle />,
+    document.getElementById('reactapp')
+    );

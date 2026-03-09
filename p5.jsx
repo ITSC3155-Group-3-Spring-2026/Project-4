@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/main.css';
 import { HashRouter, Route, Link } from "react-router-dom";
-import Header from './components/header/Header';
+import Header from './components/header/header';
 import Example from './components/example/Example';
 import States from './components/states/States';
 
